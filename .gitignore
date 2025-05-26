@@ -1,0 +1,12 @@
+# Ignore Python virtual environments
+yelpvenv/
+
+# Ignore environment config
+.env
+
+# Ignore __pycache__ and compiled files
+__pycache__/
+*.py[cod]
+
+# VS Code settings (optional)
+.vscode/
