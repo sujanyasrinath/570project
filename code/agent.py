@@ -5,6 +5,7 @@ from dish_tool import analyze_top_dishes
 def run_dish_agent():
     llm = BedrockChat(
         model_id="anthropic.claude-v2",  # or claude-v3, etc.
+        #model_id = "anthropic.claude-3-sonnet-20240229-v1:0",
         region_name="us-east-1",
         model_kwargs={"temperature": 0.3}
     )
