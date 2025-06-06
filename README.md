@@ -7,7 +7,6 @@ A Streamlit-powered dashboard that summarizes customer sentiment and reviews for
 - Real-time Reddit post search
 - AI-generated summaries with Claude 3 Sonnet via AWS Bedrock
 - Average sentiment scoring with VADER
-- Optional dish-level NLP extraction
 - Filters for city, local restaurants, and fast food
 
 ## Requirements
