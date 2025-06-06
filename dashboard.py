@@ -3,31 +3,34 @@ from dotenv import load_dotenv
 from reddit_sentiment import (
     get_reddit_post_titles_and_links,
     label_sentiment,
-    get_sentiment_for_restaurant
+    get_sentiment_for_restaurant,
+    search_reddit  # ✅ ADD THIS
 )
 import boto3
-from langchain_community.chat_models import BedrockChat
+from langchain_aws import ChatBedrock
+#from langchain_community.chat_models import BedrockChat
 from urllib.parse import quote_plus
 import matplotlib.pyplot as plt
 import pandas as pd
 from langchain import hub
 from langchain.agents import AgentExecutor, create_structured_chat_agent
 from langchain.tools import Tool
-from langchain_community.tools.reddit_search.tool import RedditSearchRun
+#from langchain_community.tools.reddit_search.tool import RedditSearchRun
 
 load_dotenv()
 
 aws_client = boto3.client(service_name="bedrock-runtime")
-llm = BedrockChat(
-    client=aws_client,
+llm = ChatBedrock(
     model_id="anthropic.claude-3-sonnet-20240229-v1:0",
+    region_name="us-west-2",  # your AWS region
+    streaming=False,          # ✅ DISABLE STREAMING
     model_kwargs={
-        "max_tokens": 2048,
+        "max_tokens": 768,
         "temperature": 0.0,
         "top_k": 250,
         "top_p": 0.9,
         "stop_sequences": ["\n\nHuman"]
-    },
+    }
 )
 
 prompt = hub.pull("hwchase17/structured-chat-agent")
@@ -35,34 +38,16 @@ prompt = hub.pull("hwchase17/structured-chat-agent")
 @st.cache_data(show_spinner="Fetching Reddit summary...")
 def summarize_restaurant_reddit(restaurant_name, time_filter="month"):
     reddit_tool = Tool.from_function(
-        func=lambda query: RedditSearchRun().invoke({
-            "query": query,
-            "limit": "10",
-            "subreddit": "all",
-            "time_filter": time_filter,
-            "sort": "relevance"
-        }),
-        name="RedditSearch",
-        description="Searches Reddit for discussions about a restaurant."
-    )
+    func=lambda query: search_reddit(query, time_filter=time_filter),
+    name="RedditSearch",
+    description="Searches Reddit for discussions about a restaurant."
+)
 
     agent = create_structured_chat_agent(llm, [reddit_tool], prompt)
     agent_executor = AgentExecutor(agent=agent, tools=[reddit_tool], verbose=True)
 
     query = f"""
-Based on recent Reddit posts, list 3–5 concise bullet points that highlight what customers should know before visiting {restaurant_name}.
-
-✅ Focus only on:
-- Food quality, taste, and presentation
-- Service and staff behavior
-- Ambience and cleanliness
-- Pricing and value
-
-❌ Do NOT include:
-- Basic details (location, hours, menus)
-- Reddit usernames or unrelated drama
-
-Write each point as a short, helpful sentence (max 15 words).
+Summarize Reddit feedback on {restaurant_name} in 3–5 helpful bullets about food, service, or pricing.
 """
 
     response = agent_executor.invoke({"input": query})
