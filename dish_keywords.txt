@@ -1,0 +1,255 @@
+ramen  
+sushi  
+tempura  
+tonkatsu  
+udon  
+miso soup  
+okonomiyaki  
+yakitori  
+gyudon  
+karaage  
+chirashi  
+chawanmushi  
+unagi  
+takoyaki  
+onigiri  
+yakiniku  
+tsukemono  
+soba  
+donburi  
+shabu shabu  
+butter chicken  
+rogan josh  
+biryani  
+tikka masala  
+dal makhani  
+chana masala  
+paneer tikka  
+malai kofta  
+kadai paneer  
+aloo gobi  
+sambar  
+idli  
+dosa  
+poha  
+pav bhaji  
+tandoori chicken  
+naan  
+rajma  
+gulab jamun  
+rasmalai  
+tacos al pastor  
+chilaquiles  
+tamales  
+pozole  
+enchiladas  
+sopes  
+elote  
+mole poblano  
+quesadillas  
+carne asada  
+tostadas  
+guacamole  
+ceviche  
+pico de gallo  
+huevos rancheros  
+fajitas  
+barbacoa  
+cochinita pibil  
+torta ahogada  
+flan  
+lasagna  
+spaghetti carbonara  
+fettuccine alfredo  
+risotto  
+arancini  
+gnocchi  
+osso buco  
+bruschetta  
+caprese salad  
+margherita pizza  
+calzone  
+panzanella  
+bolognese  
+caponata  
+tiramisu  
+panna cotta  
+gelato  
+minestrone  
+polenta  
+cannoli  
+dumplings  
+mapo tofu  
+chow mein  
+lo mein  
+hot pot  
+dan dan noodles  
+pork buns  
+wonton soup  
+spring rolls  
+egg fried rice  
+kung pao chicken  
+sweet and sour pork  
+char siu  
+scallion pancake  
+tea eggs  
+peking duck  
+jiaozi  
+xiao long bao  
+sesame chicken  
+moo shu pork  
+pad thai  
+green curry  
+red curry  
+massaman curry  
+tom yum  
+tom kha gai  
+som tum  
+larb  
+pad see ew  
+kai jeow  
+khao soi  
+moo ping  
+tod man pla  
+satay  
+khao pad  
+panang curry  
+gaeng som  
+pla rad prik  
+yam woon sen  
+sticky rice with mango  
+shawarma  
+falafel  
+hummus  
+baba ghanoush  
+tabbouleh  
+fattoush  
+kibbeh  
+manakish  
+kofta  
+maqluba  
+mansaf  
+mujadara  
+shakshuka  
+labneh  
+stuffed grape leaves  
+kabsa  
+sfiha  
+harissa  
+foul medames  
+zarb  
+bibimbap  
+bulgogi  
+kimchi jjigae  
+galbi  
+samgyeopsal  
+japchae  
+tteokbokki  
+kimchi fried rice  
+naengmyeon  
+soondubu jjigae  
+banchan  
+haemul pajeon  
+gimbap  
+bossam  
+dak galbi  
+hobakjuk  
+mul naengmyeon  
+doenjang jjigae  
+gyeran jjim  
+yangnyeom chicken  
+pho  
+bun cha  
+goi cuon  
+banh xeo  
+thit nuong  
+com tam  
+bo kho  
+ca kho to  
+bun rieu  
+cha ca  
+hu tieu  
+banh cuon  
+bun thit nuong  
+pho ga  
+bo la lot  
+canh chua  
+bun dau mam tom  
+banh canh  
+xoi  
+che  
+arepas  
+bandeja paisa  
+ajiaco  
+empanadas  
+tamales tolimenses  
+pandebono  
+arroz con coco  
+carne oreada  
+sancocho  
+lechona  
+patacones  
+cazuela de mariscos  
+sobrebarriga  
+calentado  
+morcilla  
+hogao  
+mazamorra  
+postre de natas  
+ceviche  
+lomo saltado  
+aji de gallina  
+papa a la huancaína  
+anticuchos  
+rocoto relleno  
+causa  
+seco de cordero  
+carapulcra  
+arroz chaufa  
+tacu tacu  
+chupe de camarones  
+sopa criolla  
+mazamorra morada  
+suspiro a la limeña  
+juane  
+picarones  
+ensalada rusa  
+yuca frita  
+feijoada  
+moqueca  
+coxinha  
+acarajé  
+pão de queijo  
+farofa  
+brigadeiro  
+pastel  
+vatapá  
+baião de dois  
+caldo verde  
+picanha  
+escondidinho  
+bolo de rolo  
+tutu de feijão  
+quindim  
+bobó de camarão  
+arroz carreteiro  
+dobradinha  
+empadão  
+curau  
+francesinha  
+bacalhau à brás  
+arroz de pato  
+sardinhas assadas  
+cataplana  
+caldo verde  
+alheira  
+tripas à moda do Porto  
+doce de ovos  
+leite creme  
+pastéis de nata  
+bolo de caco  
+salame de chocolate  
+milho frito  
+bifana  
+pão com chouriço  
+espetada  

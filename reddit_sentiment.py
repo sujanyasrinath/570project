@@ -9,6 +9,8 @@ from langchain_community.chat_models import BedrockChat
 from langchain.tools import Tool
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from dotenv import load_dotenv
+import spacy
+from spacy.matcher import PhraseMatcher
 
 load_dotenv()
 
@@ -18,7 +20,7 @@ llm = BedrockChat(
     client=aws_client,
     model_id="anthropic.claude-3-sonnet-20240229-v1:0",
     model_kwargs={
-        "max_tokens": 2048,
+        "max_tokens": 768,
         "temperature": 0.0,
         "top_k": 250,
         "top_p": 0.9,
@@ -71,21 +73,10 @@ def summarize_restaurant_reddit(restaurant_name: str):
     agent = create_structured_chat_agent(llm, [reddit_tool], prompt)
     agent_executor = AgentExecutor(agent=agent, tools=[reddit_tool], verbose=True)
 
-    query = f"""
-Based on recent Reddit posts, list 3–5 concise bullet points that highlight what customers should know before visiting {restaurant_name}.
-
-✅ Focus only on:
-- Food quality, taste, and presentation
-- Service and staff behavior
-- Ambience and cleanliness
-- Pricing and value
-
-❌ Do NOT include:
-- Basic details (location, hours, menus)
-- Reddit usernames or unrelated drama
-
-Write each point as a short, helpful sentence (max 15 words).
+    query = fquery = f"""
+Summarize Reddit feedback on {restaurant_name} in 3–5 short bullets focusing on food, service, and value.
 """
+
 
     response = agent_executor.invoke({"input": query})
     summary = response.get("output", "") if isinstance(response, dict) else str(response)
@@ -104,3 +95,22 @@ def label_sentiment(score):
         return "Negative"
     else:
         return "Neutral"
+    
+# Load spaCy model
+nlp = spacy.load("en_core_web_sm")
+
+# Load dish keywords from text file
+with open("dish_keywords.txt", "r") as f:
+    dish_keywords = [line.strip().lower() for line in f if line.strip()]
+
+# Initialize matcher with lowercase dish patterns
+dish_matcher = PhraseMatcher(nlp.vocab, attr="LOWER")
+dish_matcher.add("DISH", [nlp.make_doc(dish) for dish in dish_keywords])
+
+import re
+from collections import Counter
+
+def extract_dish_mentions(posts):
+    all_text = " ".join(post["title"].lower() for post in posts)
+    mentions = [dish for dish in dish_keywords if re.search(rf"\b{re.escape(dish)}\b", all_text)]
+    return Counter(mentions).most_common()

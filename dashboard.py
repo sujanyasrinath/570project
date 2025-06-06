@@ -14,6 +14,7 @@ from langchain import hub
 from langchain.agents import AgentExecutor, create_structured_chat_agent
 from langchain.tools import Tool
 from langchain_community.tools.reddit_search.tool import RedditSearchRun
+from reddit_sentiment import extract_dish_mentions
 
 load_dotenv()
 
@@ -92,7 +93,49 @@ Reply in 2–4 sentences.
     except Exception as e:
         return f"Error generating response: {e}"
 
+
+
 st.set_page_config(page_title="Reddit Sentiment Dashboard", layout="wide")
+
+	# Custom CSS for pink theme
+st.markdown("""
+    <style>
+    body {
+        background-color: #ffe6f0;
+        color: #d63384;
+        font-family: 'Helvetica Neue', sans-serif;
+    }
+    .stApp {
+        background-color: #fff0f5;
+    }
+    h1, h2, h3, h4, h5 {
+        color: #e91e63;
+    }
+    .css-1d391kg {  /* Main container text */
+        color: #d63384;
+    }
+    .css-1v0mbdj, .stMetricValue {  /* Metric and text inside expander */
+        color: #c2185b !important;
+    }
+    .css-1cpxqw2, .css-1kyxreq, .st-bx {  /* Sidebar styles */
+        background-color: #ffe6f0 !important;
+        color: #880e4f;
+    }
+    .stButton button {
+        background-color: #f06292;
+        color: white;
+    }
+    .stTextInput>div>div>input {
+        background-color: #fff0f5;
+        color: #880e4f;
+    }
+    .stSelectbox>div>div>div>div {
+        background-color: #fff0f5;
+        color: #880e4f;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
 
 st.sidebar.title("Reddit Sentiment Explorer")
 restaurant_query = st.sidebar.text_input("Enter Restaurant Name", "")
@@ -118,6 +161,13 @@ if restaurant_query:
 
     with st.spinner(f"Analyzing Reddit discussions for {full_query}..."):
         reddit_result = summarize_restaurant_reddit(full_query, time_filter)
+        # 🔍 Extract dish mentions from Reddit posts
+        posts = get_reddit_post_titles_and_links(full_query)
+        if posts:
+            dish_mentions = extract_dish_mentions(posts)
+        else:
+            dish_mentions = []
+
         st.markdown(f"### {reddit_result['restaurant']}")
 
         st.metric("Average Sentiment Score", f"{reddit_result['avg_sentiment_score']:.2f}",
@@ -145,6 +195,13 @@ if restaurant_query:
         with st.spinner("Generating AI response..."):
             answer = query_restaurant_feedback(full_query, user_question)
             st.success(answer)
+
+    st.markdown("### 🍽️ Popular Dishes Mentioned")
+    if dish_mentions:
+        for dish, count in dish_mentions:
+            st.markdown(f"- **{dish.title()}** mentioned {count} times")
+    else:
+        st.markdown("_No specific dishes mentioned in these posts._")
 
     st.markdown("### Official Website")
     search_url = f"https://www.google.com/search?q={quote_plus(full_query + ' official website')}"
